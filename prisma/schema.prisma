@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  <<<<<<< HEAD
+  id        String     @id @default(uuid())
+  name      String
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  orders    Order[]
+  favorites Favorite[]
+
+  =======
+  id        String     @id @default(uuid())
+  name      String
+  ddd       Number
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  orders    Order[]
+  favorites Favorite[]
+  >>>>>>> 6289ae11d24c701f150f6980d20f62043dc072f5
+
+  @@map("user")
+}
+
+model Product {
+  id          String           @id @default(uuid())
+  name        String           @unique
+  description String
+  <<<<<<< HEAD
+  price       Float
+  image       String
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+  category    Category?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId  String?          @map("category_id")
+  orders      OrderToProduct[]
+  favorites   Favorite[]
+
+  =======
+  price      Float
+  image      String
+  createdAt  DateTime         @default(now()) @map("created_at")
+  updatedAt  DateTime         @updatedAt @map("updated_at")
+  category   Category?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId String?          @map("category_id")
+  orders     OrderToProduct[]
+  favorites  Favorite[]
+  >>>>>>> 6289ae11d24c701f150f6980d20f62043dc072f5
+
+  @@map("product")
+}
+
+model Table {
+  id        String   @id @default(uuid())
+  number    Int      @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  <<<<<<< HEAD
+  orders    Order[]
+
+  =======
+  orders Order[]
+  >>>>>>> 6289ae11d24c701f150f6980d20f62043dc072f5
+
+  @@map("table")
+}
+
+model Category {
+  <<<<<<< HEAD
+  id        String    @id @default(uuid())
+  name      String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  products  Product[]
+
+  =======
+  id        String    @id @default(uuid())
+  name      String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  products  Product[]
+  >>>>>>> 6289ae11d24c701f150f6980d20f62043dc072f5
+
+  @@map("category")
+}
+
+model Order {
+  <<<<<<< HEAD
+  id          String           @id @default(uuid())
+  createdAt   DateTime         @default(now()) @map("created_at")
+  table       Table?           @relation(fields: [tableNumber], references: [number], onDelete: SetNull)
+  tableNumber Int?             @map("table_number")
+  user        User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId      String?          @map("user_id")
+  products    OrderToProduct[]
+
+  =======
+  id          String           @id @default(uuid())
+  createdAt   DateTime         @default(now()) @map("created_at")
+  table       Table?           @relation(fields: [tableNumber], references: [number], onDelete: SetNull)
+  tableNumber Int?             @map("table_number")
+  user        User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId      String?          @map("user_id")
+  products    OrderToProduct[]
+  >>>>>>> 6289ae11d24c701f150f6980d20f62043dc072f5
+
+  @@map("order")
+}
+
+model OrderToProduct {
+  <<<<<<< HEAD
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productId String?  @map("product_id")
+  order     Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  orderId   String?  @map("order_id")
+  quantity  Int
+
+  =======
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productId String?  @map("product_id")
+  order     Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  orderId   String?  @map("order_id")
+  quantity  Int
+  >>>>>>> 6289ae11d24c701f150f6980d20f62043dc072f5
+
+  @@map("order_to_product")
+}
+
+model Favorite {
+  <<<<<<< HEAD
+  id          String   @id @default(uuid())
+  favoritedAt DateTime @default(now()) @map("favorited_at")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String   @map("user_id")
+  product     Product  @relation(fields: [productName], references: [name], onDelete: Cascade)
+  productName String   @map("product_name")
+  =======
+  id          String   @id @default(uuid())
+  favoritedAt DateTime @default(now()) @map("favorited_at")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String   @map("user_id")
+  product     Product  @relation(fields: [productName], references: [name], onDelete: Cascade)
+  productName String   @map("product_name")
+  >>>>>>> 6289ae11d24c701f150f6980d20f62043dc072f5
+
+  @@unique([userId, productName])
+  @@unique([userId, productName])
+  @@map("favorite")
+  @@map("favorite")
+}
